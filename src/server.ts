@@ -3,12 +3,13 @@ import { fastifyCors } from "@fastify/cors";
 import {
   validatorCompiler,
   serializerCompiler,
-  ZodTypeProvider,
+  type ZodTypeProvider,
   jsonSchemaTransform
 } from "fastify-type-provider-zod";
 import { fastifySwagger } from "@fastify/swagger";
 import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import { subscribeToEventRoute } from "./routes/subscribe-to-event-route";
+import { env } from "./env";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -39,6 +40,6 @@ app.get("/hello", () => {
 
 app.register(subscribeToEventRoute);
 
-app.listen({ port: 3333 }, () => {
+app.listen({ port: env.PORT }, () => {
   console.log("Server running at http://localhost:3333/");
 });
